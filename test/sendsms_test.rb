@@ -7,7 +7,7 @@ class SendsmsTest < Test::Unit::TestCase
       config.private_key = ENV["PRIVATE_KEY"]
       config.base_url = ENV["BASE_URL"]
     end
-    params['public_key'] = UcloudApiClient.public_key
+
     UcloudApiClient.new.get("/ufirewall", params,"xml")
   end
 end

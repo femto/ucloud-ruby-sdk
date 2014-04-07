@@ -13,13 +13,14 @@ class UcloudApiClient
   end
   def get(url, params, format="json")
     params = params.clone
+    params['public_key'] = UcloudApiClient.public_key
     params["region_id"] = 1
     params["zone_id"] = 1
     params["project_id"] = 1
     params["module_id"] = 1
 
     params["access_token"] = verify_ac(params)
-    result = RestClient.get "#{UcloudApiClient.base_url}#{url}", {:params => params.merge("format"=>format)}
+    result = RestClient.get "#{UcloudApiClient.base_url}#{url}", {:params => params.merge("format" => format)}
     puts result
     result
   end
