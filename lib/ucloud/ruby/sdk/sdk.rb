@@ -27,8 +27,20 @@ class UcloudApiClient
         result
     end
 
-    def post
+    def post(url, params, format="json")
+      params = params.clone
+      params['public_key'] = UcloudApiClient.public_key
+      params["region_id"] = 1
+      params["zone_id"] = 1
+      params["project_id"] = 0
+      params["module_id"] = 0
+      params["format"] = format
 
+      params["access_token"] = verify_ac(params)
+
+
+      result = RestClient.post "#{UcloudApiClient.base_url}#{url}", {:params => params}
+      result
     end
 
     private
